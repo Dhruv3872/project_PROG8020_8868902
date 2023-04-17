@@ -1,0 +1,52 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <header>
+            <div class="grid0">
+                <div><img src="/images/logo.jpg" alt="logo"></div>
+                <div><h1>We recycle your electronic waste!</h1></div>
+            </div>
+            <nav>
+                <div class="grid0">
+                    <div class="navigation"><a href="/">Add New</a></div>
+                    <div class="navigation"><a href="/admin">Admin Login</a></div>
+                </div>
+            </nav>
+        </header> -->
+<%- include('shared/header.ejs') %>
+        <h1>New Request</h1>
+        <div class ="grid1">
+            <form action="/thankForSubmission" method="post" enctype="multipart/form-data">
+                <label for="name">Name:</label>
+                <input type="text" name="name">
+                <label for="email">Email/Phone:</label>
+                <input type="text" name="email">
+                <label for="photo">Photo:</label>
+                <input type="file" class="form-input" name="photo">
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/tinymce/jquery.tinymce.min.js"></script>
+    <script src="js/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+        selector: '#description',
+         height: 500,
+        // menubar: false
+        }); 
+    </script>
+    <%- include('shared/footer.ejs') %>
+<!-- </body> -->
+<!-- </html> -->
