@@ -14,6 +14,14 @@ const User = mongoose.model('User', {
   userName : String,
   password : String
 });
+
+const Ticket = mongoose.model('Ticket', {
+  name : String,
+  emailOrPhone : String,
+  description: String,
+  imageName : String,
+  imagePath : String
+});
 let myApp = express();
 // set up the session middleware
 myApp.use(session({
@@ -35,18 +43,80 @@ myApp.get('/login', (req,res) => {
 });
 
 myApp.post('/thankForSubmission', (req,res) =>{
+  var name = req.body.name;
+  var email = req.body.email;
+  var description = req.body.description;
   var imageName = req.files.photo.name;
   var image = req.files.photo;
   var imagePath = 'public/uploads/requests/' + imageName;
   image.mv(imagePath, function(err){
     console.log(err);
   });
+  var latestTicket = {
+    name : name,
+    emailOrPhone : email,
+    description : description,
+    imageName : imageName,
+    imagePath : imagePath
+  }
+  var thisTicket = new Ticket(latestTicket);
+  thisTicket.save();
   res.render('thankYouForSubmission');
 });
 
-myApp.get('/dashboard', (req,res) => {
-  res.render('dashboard');
+myApp.post('/thankForEditSubmission', (req,res) =>{
+  if(!req.session.loggedIn){
+    res.redirect('/login');
+  }
+  else{
+    var id = req.body.id;
+    var name = req.body.name;
+    var emailOrPhone = req.body.email;
+    var description = req.body.description;
+    console.log(id + "   " + 
+    name + "   " + emailOrPhone + "   " + description);
+    Ticket.findByIdAndUpdate(id, {name: name, emailOrPhone: emailOrPhone,
+      description: description}, function (err, docs) {
+        if (err){
+            console.log(err)
+        }
+        else{
+            console.log("Updated ticket : ", docs);
+            res.render('thankYouForEditSubmission');
+        }
+      });
+  }
 });
+
+myApp.get('/dashboard', async (req,res) => {
+  if(req.session.loggedIn){
+    const tickets = await Ticket.find().exec();
+    res.render('dashboard',{tickets});
+  }
+  else{
+    res.redirect('/login');
+  }
+});
+
+myApp.get('/view/:ticketId',function(req,res) {
+  var id = req.params.ticketId;
+  Ticket.findById(id).exec(function(err,ticket) {
+    res.render('view', ticket);
+  });
+});
+myApp.get('/edit/:ticketId', function(req,res) {
+  var id = req.params.ticketId;
+  Ticket.findById(id).exec(function(err,ticket) {
+    res.render('edit', ticket);
+  });
+});
+myApp.get('/delete/:ticketId', function(req,res) {
+  var id = req.params.ticketId;
+  Ticket.findByIdAndDelete(id).exec(function(err,ticket) {
+    res.render('thankYouForDelete', ticket);
+  });
+});
+
 myApp.post('/verifyLogin', (req,res) =>{
   var user = req.body.username;
   var pw = req.body.password;
@@ -68,6 +138,12 @@ myApp.post('/verifyLogin', (req,res) =>{
       res.redirect('/login');
     }
   });
+});
+
+myApp.get('/logout', (req,res) =>{
+  // destroy the whole session
+  req.session.destroy();
+  res.redirect('/login');
 });
   
   /* exec(function(err, user){
