@@ -8,6 +8,24 @@
 .grid0 img{
     width: 100%;
 }
+.grid1{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    grid-template-columns: 20% 80%;
+}
+.gridNavigation{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    grid-template-columns: 50% 50%;
+    border-color:black;
+    border-style: solid;
+    border-width: 2px;
+
+}
 .navigation{
     width: 100%;
     display: inline-block;
@@ -29,8 +47,8 @@
     border-width: 2px;
 }
 
-tr{
-    border-color:gray;
+td, th{
+    border-color:black;
     border-style: solid;
     border-width: 2px;
 }
@@ -40,4 +58,14 @@ footer{
     border-color:gray;
     border-style: solid;
     border-width: 2px;
+}
+
+.submitButton{
+    margin: 0% 50% 0% 50%;
+    width: 20%;
+}
+
+.ticketTable{
+    margin:auto;
+    align-items: center;
 }

@@ -2,11 +2,14 @@
 <%- include('shared/navigation.ejs') %>
 <h1 class="textCenter">Login</h1>
 <form action="verifyLogin" method="POST">
-    <label for="username">UserName</label>
-    <input type="text" name="username">
-    <label for="password">Password</label>
-    <input type="password" name="password">
-    <input type="submit" value="Submit">
-    <!-- <p></p> -->
+    <div class="grid1">
+        <label for="username">UserName</label>
+        <input type="text" name="username">
+    </div>
+    <div class="grid1">
+        <label for="password">Password</label>
+        <input type="password" name="password">
+    </div>
+        <input class="submitButton" type="submit" value="Submit">
 </form>
 <%- include('shared/footer.ejs') %>

@@ -1,17 +1,25 @@
 <%- include('shared/header.ejs') %>
 <%- include('shared/navigation.ejs') %>
-        <h1>New Request</h1>
-        <div class ="grid1">
+        <h1 class="textCenter">New Request</h1>
+        <div>
             <form action="/thankForSubmission" method="post" enctype="multipart/form-data">
-                <label for="name">Name:</label>
-                <input type="text" name="name">
-                <label for="email">Email/Phone:</label>
-                <input type="text" name="email">
-                <label for="photo">Photo:</label>
-                <input type="file" class="form-input" name="photo">
-                <label for="description">Description</label>
-                <input type="text" id="description" name="description">
-                <input type="submit" value="Submit">
+                <div class ="grid1">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name">
+                </div>
+                <div class ="grid1">
+                    <label for="email">Email/Phone:</label>
+                    <input type="text" name="email">
+                </div>
+                <div class ="grid1">
+                    <label for="photo">Photo:</label>
+                    <input type="file" class="form-input" name="photo">
+                </div>
+                <div class ="grid1">
+                    <label for="description">Description</label>
+                    <input type="text" id="description" name="description">
+                </div>
+                <input class="submitButton" type="submit" value="Submit">
             </form>
         </div>
     </main>
